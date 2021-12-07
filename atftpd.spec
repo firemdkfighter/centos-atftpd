@@ -13,6 +13,8 @@ Source3: https://raw.githubusercontent.com/archlinux/svntogit-community/packages
 Source4: https://raw.githubusercontent.com/archlinux/svntogit-community/packages/atftp/trunk/tmpfiles.conf
 
 Requires: pcre readline
+BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 
 Provides:       tftp(client)
 Provides:       tftp(server)
@@ -42,12 +44,21 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_sysusersdir}/atftp.conf
 install -D -m 0644 %{SOURCE4} %{buildroot}/%{_tmpfilesdir}/atftp.conf
 
 %files
-/%{_sysconfdir}/conf.d/atftpd
-/%{_unitdir}/atftpd.service
-/%{_sysusersdir}/atftp.conf
-/%{_tmpfilesdir}/atftp.conf
+%config %{_sysconfdir}/conf.d/atftpd
+%{_unitdir}/atftpd.service
+%{_sysusersdir}/atftp.conf
+%{_tmpfilesdir}/atftp.conf
 %{_bindir}/atftp
 %{_bindir}/atftpd
 %{_bindir}/in.tftpd
 %{_mandir}/*/atftp*
 %{_mandir}/man8/in.tftpd.8.gz
+
+%post
+%systemd_post atftpd.service
+
+%preun
+%systemd_preun atftpd.service
+
+%postun
+%systemd_postun_with_restart atftpd.service
