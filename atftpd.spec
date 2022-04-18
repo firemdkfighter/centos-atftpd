@@ -15,6 +15,7 @@ Source4: https://raw.githubusercontent.com/archlinux/svntogit-community/packages
 Requires: pcre readline
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
+BuildRequires: gcc
 
 Provides:       tftp(client)
 Provides:       tftp(server)
