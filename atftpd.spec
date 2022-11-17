@@ -1,6 +1,6 @@
 Summary: Advanced TFTP Server and Client
 Name: atftp
-Version: 0.7.5
+Version: 0.8.0
 Release: 1%{?dist}
 Group:  System/Daemons
 License: GPL
@@ -12,7 +12,7 @@ Source2: https://raw.githubusercontent.com/archlinux/svntogit-community/packages
 Source3: https://raw.githubusercontent.com/archlinux/svntogit-community/packages/atftp/trunk/sysusers.conf
 Source4: https://raw.githubusercontent.com/archlinux/svntogit-community/packages/atftp/trunk/tmpfiles.conf
 
-Requires: pcre readline
+Requires: pcre2 readline
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 BuildRequires: gcc
@@ -25,9 +25,7 @@ Client/server implementation of the TFTP protocol that implements RFCs 1350, 209
 
 %prep
 %setup -q
-
-%build
-CFLAGS+=' -std=gnu89'
+autoreconf -fi
 
 ./configure \
   --prefix=/usr \
@@ -35,6 +33,8 @@ CFLAGS+=' -std=gnu89'
   --sbindir=/usr/bin \
   --enable-libreadline \
   --disable-libwrap
+
+%build
 make
 
 %install
