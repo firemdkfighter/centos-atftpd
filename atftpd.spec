@@ -13,7 +13,7 @@ Source3: https://raw.githubusercontent.com/archlinux/svntogit-community/packages
 Source4: https://raw.githubusercontent.com/archlinux/svntogit-community/packages/atftp/trunk/tmpfiles.conf
 
 Requires: pcre2 readline
-BuildRequires: systemd systemd-rpm-macros gcc autoconf
+BuildRequires: systemd systemd-rpm-macros gcc autoconf automake
 
 Provides:       tftp(client)
 Provides:       tftp(server)
